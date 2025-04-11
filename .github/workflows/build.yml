@@ -31,7 +31,7 @@ jobs:
     if: github.event.repository.owner.id == github.event.sender.id
     strategy:
       matrix:
-        VERSION: [21.02, 23.05]
+        VERSION: ['23.05', '24.10']
         SET: [docker, non-docker]
 
     steps:
@@ -141,7 +141,7 @@ jobs:
 
     strategy:
       matrix:
-        VERSION: [21.02, 23.05]
+        VERSION: ['23.05', '24.10']
         CPU: [rk3328, rk3528, rk3399, rk3566, rk3568, rk3588]
         SET: [docker, non-docker]
     steps:
@@ -257,6 +257,13 @@ jobs:
         cd project
         ./build.sh uboot
         ./build.sh kernel
+
+        ## If you want to compile a driver from source, here is an example
+        # case ${{ matrix.CPU }} in
+        # rk3568)
+        #     ../scripts/3rd/add_r8125.sh
+        #     ;;
+        # esac
 
     - name: Build sd image
       id: build_sd_image
